@@ -1,0 +1,19 @@
+@use '../base/settings' as *;
+
+.auth__box-container {
+	background-color: $white;
+	border-radius: 2px;
+	box-shadow: 0px 3px $dark-gray;
+	padding: 20px;
+	width: 250px;
+}
+
+.auth__main {
+	align-items: center;
+	background-color: $primary;
+	display: flex;
+	height: 100vh;
+	justify-content: center;
+	margin: 0;
+	width: 100vw;
+}
