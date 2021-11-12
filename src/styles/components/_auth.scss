@@ -1,4 +1,16 @@
 @use '../base/settings' as *;
+@use 'buttons' as *;
+@use 'links';
+
+.auth__alert-error {
+	background-color: red;
+	border-radius: 5px;
+	color: white;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 10px;
+	padding: 5px;
+}
 
 .auth__box-container {
 	background-color: $white;
@@ -6,6 +18,23 @@
 	box-shadow: 0px 3px $dark-gray;
 	padding: 20px;
 	width: 250px;
+}
+
+.auth__input {
+	border: 0;
+	border-bottom: 1px solid $light-gray;
+	color: $dark-gray;
+	font-size: 16px;
+	height: 20px;
+	margin-bottom: 10px;
+
+	transition: border-bottom 0.3 ease;
+	width: 100%;
+
+	&:focus {
+		border-bottom: 1px dotted $primary;
+		outline: none;
+	}
 }
 
 .auth__main {
@@ -16,4 +45,18 @@
 	justify-content: center;
 	margin: 0;
 	width: 100vw;
+}
+
+.auth__social-networks {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding-top: 20px 0 20px;
+	width: 100%;
+}
+
+.auth__title {
+	color: darken($color: $primary, $amount: 20);
+	margin-bottom: 20px;
 }

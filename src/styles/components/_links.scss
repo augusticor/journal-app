@@ -1,0 +1,10 @@
+@use '../base/settings' as s;
+
+.link {
+	color: s.$dark-gray;
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
