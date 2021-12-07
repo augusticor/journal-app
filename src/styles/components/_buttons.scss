@@ -8,8 +8,15 @@
 	font-size: 12px;
 	padding: 7px 10px;
 
+	transition: color 0.3 ease;
+
 	&:focus {
 		outline: none;
+	}
+
+	&:hover {
+		background-color: darken($color: settings.$primary, $amount: 10);
+		color: lighten($color: settings.$white, $amount: 10);
 	}
 }
 
@@ -37,22 +44,22 @@
 	box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
 	cursor: pointer;
 	display: flex;
-	margin-top: 5px;
 	height: 40px;
+	margin-top: 5px;
 	transition: box-shadow 0.3s ease;
 	width: 100%;
 
 	.google-icon-wrapper {
 		align-items: center;
-		border-radius: 2px 0 0 2px;
 		background-color: settings.$white;
+		border-radius: 2px 0 0 2px;
 		display: flex;
-		justify-content: center;
 		height: 40px;
+		justify-content: center;
 		width: 40px;
 		.google-icon {
-			width: 18px;
 			height: 18px;
+			width: 18px;
 		}
 	}
 	.btn-text {

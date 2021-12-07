@@ -1,0 +1,54 @@
+@use '../base/settings' as *;
+
+.notes__app-bar {
+	align-items: center;
+	background-color: $primary;
+	color: $white;
+	display: flex;
+	justify-content: space-between;
+	padding: 10px 20px;
+}
+
+.notes__content {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	padding: 20px 5px 0 20px;
+}
+
+.notes__image {
+	img {
+		box-shadow: 3px 3px $dark-gray;
+		height: 150px;
+	}
+}
+
+.notes__main-content {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.notes__title-input,
+.notes__text-area {
+	border: none;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.notes__text-area {
+	color: $dark-gray;
+	flex: 1 1 auto;
+	font-size: 20px;
+	margin-bottom: 8px;
+	resize: none;
+}
+
+.notes__title-input {
+	color: $dark-gray;
+	font-size: 25px;
+	font-weight: 700;
+	margin-bottom: 20px;
+}
