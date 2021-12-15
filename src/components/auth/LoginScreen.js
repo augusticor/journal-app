@@ -7,6 +7,7 @@ import { login } from '../../actions/auth';
 import { useForm } from '../../hooks/useForm';
 
 const LoginScreen = () => {
+	// hook from redux for dispatch anywhere
 	const dispatch = useDispatch();
 
 	const [formValues, handleInputChange] = useForm({
