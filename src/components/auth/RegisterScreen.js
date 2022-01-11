@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import validator from 'validator';
 
@@ -9,6 +9,8 @@ import { hideUIError, showUIError } from '../../actions/ui';
 
 const RegisterScreen = () => {
 	const dispatch = useDispatch();
+	const state = useSelector((state) => state.ui);
+	const { message: errorMessage } = state;
 
 	const [formValues, handleInputChange] = useForm({
 		username: 'Oscar',
@@ -21,25 +23,21 @@ const RegisterScreen = () => {
 
 	const isFormValid = () => {
 		if (username.trim().length < 2) {
-			console.log('Name is required');
 			dispatch(showUIError('001', 'Name is required'));
 			return false;
 		}
 
 		if (!validator.isEmail(email)) {
-			console.log('Not valid email');
 			dispatch(showUIError('002', 'Not valid email'));
 			return false;
 		}
 
 		if (password !== password2) {
-			console.log('Passwords do not match');
 			dispatch(showUIError('003', 'Passwords do not match'));
 			return false;
 		}
 
 		if (password.length < 7) {
-			console.log('Passwords should be at least 7 characters long');
 			dispatch(showUIError('004', 'Passwords should be at least 7 characters long'));
 			return false;
 		}
@@ -63,7 +61,7 @@ const RegisterScreen = () => {
 			<h3 className='auth__title'>Register</h3>
 
 			<form onSubmit={handleRegister}>
-				<div className='auth__alert-error'>Hola error mundo</div>
+				{errorMessage && <div className='auth__alert-error'>{errorMessage}</div>}
 
 				<label htmlFor='lblname'>Username</label>
 				<input className='auth__input' id='lblusername' type='text' name='username' value={username} onChange={handleInputChange} />
