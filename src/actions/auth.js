@@ -1,11 +1,24 @@
 import { types } from '../types/types';
-import { signInWithPopup, getAuth, googleAuthProvider } from '../firebase/firebase-config';
+import { googleAuthProvider } from '../firebase/firebase-config';
+import { updateProfile, createUserWithEmailAndPassword, getAuth, signInWithPopup } from 'firebase/auth';
 
 export const startLoginEmailPassword = (email, password) => {
 	return (dispatch) => {
 		setTimeout(() => {
 			dispatch(login(123, 'Pedro'));
 		}, 2500);
+	};
+};
+
+export const startRegisterUser = (email, password, userName) => {
+	return (dispatch) => {
+		createUserWithEmailAndPassword(getAuth(), email, password)
+			.then(async ({ user }) => {
+				await updateProfile(user, { displayName: userName });
+
+				dispatch(login(user.uid, userName));
+			})
+			.catch((e) => console.log(e));
 	};
 };
 
