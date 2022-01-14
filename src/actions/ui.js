@@ -15,3 +15,11 @@ export const hideUIError = () => {
 		type: types.uiHideError,
 	};
 };
+
+export const startLoading = () => {
+	return {
+		type: types.uiStartLoading,
+	};
+};
+
+export const stopLoading = () => ({ type: types.uiStopLoading });

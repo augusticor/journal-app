@@ -1,24 +1,42 @@
 import { types } from '../types/types';
 import { googleAuthProvider } from '../firebase/firebase-config';
-import { updateProfile, createUserWithEmailAndPassword, getAuth, signInWithPopup } from 'firebase/auth';
+import { updateProfile, createUserWithEmailAndPassword, getAuth, signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
+
+import { startLoading, stopLoading } from './ui';
 
 export const startLoginEmailPassword = (email, password) => {
 	return (dispatch) => {
-		setTimeout(() => {
-			dispatch(login(123, 'Pedro'));
-		}, 2500);
+		dispatch(startLoading());
+
+		signInWithEmailAndPassword(getAuth(), email, password)
+			.then(({ user }) => {
+				dispatch(login(user.uid, user.displayName));
+
+				dispatch(stopLoading());
+			})
+
+			.catch((error) => {
+				console.log(error);
+				dispatch(stopLoading());
+			});
 	};
 };
 
 export const startRegisterUser = (email, password, userName) => {
 	return (dispatch) => {
+		dispatch(startLoading());
+
 		createUserWithEmailAndPassword(getAuth(), email, password)
 			.then(async ({ user }) => {
 				await updateProfile(user, { displayName: userName });
 
 				dispatch(login(user.uid, userName));
+				dispatch(stopLoading());
 			})
-			.catch((e) => console.log(e));
+			.catch((e) => {
+				dispatch(stopLoading());
+				console.log(e);
+			});
 	};
 };
 
@@ -35,13 +53,17 @@ export const login = (uid, displayName) => {
 
 export const startGoogleLogin = () => {
 	return (dispatch) => {
+		dispatch(startLoading());
+
 		//extract user from userCredential object from google auth
 		signInWithPopup(getAuth(), googleAuthProvider)
 			.then(({ user }) => {
 				dispatch(login(user.uid, user.displayName));
+				dispatch(stopLoading());
 			})
 			.catch((error) => {
 				console.log('Error start google login :: ', error);
+				dispatch(stopLoading());
 			});
 	};
 };

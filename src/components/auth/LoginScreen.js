@@ -1,14 +1,16 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import validator from 'validator';
 
-import { login, startLoginEmailPassword, startGoogleLogin } from '../../actions/auth';
+import { startLoginEmailPassword, startGoogleLogin } from '../../actions/auth';
+import { hideUIError, showUIError } from '../../actions/ui';
 import { useForm } from '../../hooks/useForm';
 
 const LoginScreen = () => {
 	// hook from redux for dispatch anywhere
 	const dispatch = useDispatch();
+	const uiState = useSelector((state) => state.ui);
 
 	const [formValues, handleInputChange] = useForm({
 		email: '',
@@ -17,11 +19,27 @@ const LoginScreen = () => {
 
 	const { email, password } = formValues;
 
+	const isFormValid = () => {
+		if (!validator.isEmail(email)) {
+			dispatch(showUIError('002', 'Not a valid email'));
+			return false;
+		}
+
+		if (password.length < 6) {
+			dispatch(showUIError('004', 'Passwords should be at least 7 characters long'));
+			return false;
+		}
+
+		dispatch(hideUIError());
+		return true;
+	};
+
 	const handleLogin = (event) => {
 		event.preventDefault();
-		// dispatch(login(1233, email));
 
-		dispatch(startLoginEmailPassword(email, password));
+		if (isFormValid()) {
+			dispatch(startLoginEmailPassword(email, password));
+		}
 	};
 
 	const handleGoogleLogin = () => {
@@ -31,6 +49,8 @@ const LoginScreen = () => {
 	return (
 		<>
 			<h3 className='auth__title'>Login</h3>
+
+			{uiState.message && <div className='auth__alert-error'>{uiState.message}</div>}
 
 			<form onSubmit={handleLogin}>
 				<label htmlFor='lblemail'>Email</label>
@@ -48,13 +68,15 @@ const LoginScreen = () => {
 				<label htmlFor='lblpass'>Password</label>
 				<input className='auth__input' id='lblpass' type='password' name='password' value={password} onChange={handleInputChange} required />
 
-				<button className='btn btn-primary btn-block'>Login</button>
+				<button disabled={uiState.loading} className='btn btn-primary btn-block mb-5'>
+					Login
+				</button>
 			</form>
 
 			<hr />
-			<div className='auth__social-networks'>
+			<div className='auth__social-networks mt-5 mb-5'>
 				<p>Login with social networks</p>
-				<div className='google-btn' onClick={handleGoogleLogin}>
+				<div className='google-btn mb-5' onClick={handleGoogleLogin}>
 					<div className='google-icon-wrapper'>
 						<img className='google-icon' src='https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg' alt='google button' />
 					</div>

@@ -11,7 +11,7 @@ import { startRegisterUser } from '../../actions/auth';
 const RegisterScreen = () => {
 	const dispatch = useDispatch();
 	const state = useSelector((state) => state.ui);
-	const { message: errorMessage } = state;
+	const { message: errorMessage, loading: loadingState } = state;
 
 	const [formValues, handleInputChange] = useForm({
 		username: 'Demelza Boris',
@@ -83,7 +83,9 @@ const RegisterScreen = () => {
 				<label htmlFor='lblpass2'>Confirm password</label>
 				<input className='auth__input' id='lblpass2' type='password' name='password2' value={password2} onChange={handleInputChange} />
 
-				<button className='btn btn-primary btn-block mb-5'>Create account</button>
+				<button className='btn btn-primary btn-block mb-5' disabled={loadingState}>
+					Create account
+				</button>
 			</form>
 
 			<hr className='mb-5' />

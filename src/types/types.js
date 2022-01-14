@@ -4,4 +4,6 @@ export const types = {
 
 	uiShowError: '[UI] Show Error',
 	uiHideError: '[UI] Hide Error',
+	uiStartLoading: '[UI] Start Loading',
+	uiStopLoading: '[UI] Stop Loading',
 };

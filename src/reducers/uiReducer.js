@@ -18,6 +18,18 @@ export const uiReducer = (state = initialState, action) => {
 		case types.uiHideError:
 			return initialState;
 
+		case types.uiStartLoading:
+			return {
+				...state,
+				loading: true,
+			};
+
+		case types.uiStopLoading:
+			return {
+				...state,
+				loading: false,
+			};
+
 		default:
 			return state;
 	}
