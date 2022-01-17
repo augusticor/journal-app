@@ -1,6 +1,6 @@
 import { types } from '../types/types';
 import { googleAuthProvider } from '../firebase/firebase-config';
-import { updateProfile, createUserWithEmailAndPassword, getAuth, signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
+import { updateProfile, createUserWithEmailAndPassword, getAuth, signInWithPopup, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 import { startLoading, stopLoading } from './ui';
 
@@ -67,3 +67,13 @@ export const startGoogleLogin = () => {
 			});
 	};
 };
+
+export const startLogout = () => {
+	return async (dispatch) => {
+		await signOut(getAuth());
+
+		dispatch(logout());
+	};
+};
+
+export const logout = () => ({ type: types.logout });
