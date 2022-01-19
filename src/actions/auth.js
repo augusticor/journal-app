@@ -1,6 +1,7 @@
 import { types } from '../types/types';
 import { googleAuthProvider } from '../firebase/firebase-config';
 import { updateProfile, createUserWithEmailAndPassword, getAuth, signInWithPopup, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import Swal from 'sweetalert2';
 
 import { startLoading, stopLoading } from './ui';
 
@@ -15,9 +16,14 @@ export const startLoginEmailPassword = (email, password) => {
 				dispatch(stopLoading());
 			})
 
-			.catch((error) => {
-				console.log(error);
+			.catch(() => {
 				dispatch(stopLoading());
+
+				Swal.fire({
+					title: 'Error on Login',
+					text: 'Wrong email or password',
+					icon: 'error',
+				});
 			});
 	};
 };
@@ -36,6 +42,11 @@ export const startRegisterUser = (email, password, userName) => {
 			.catch((e) => {
 				dispatch(stopLoading());
 				console.log(e);
+				Swal.fire({
+					title: 'Register Error',
+					text: 'Email address is already in use',
+					icon: 'error',
+				});
 			});
 	};
 };
@@ -62,8 +73,11 @@ export const startGoogleLogin = () => {
 				dispatch(stopLoading());
 			})
 			.catch((error) => {
-				console.log('Error start google login :: ', error);
 				dispatch(stopLoading());
+				Swal.fire({
+					text: 'Login with google error',
+					icon: 'error',
+				});
 			});
 	};
 };
