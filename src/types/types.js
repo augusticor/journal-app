@@ -6,4 +6,6 @@ export const types = {
 	uiHideError: '[UI] Hide Error',
 	uiStartLoading: '[UI] Start Loading',
 	uiStopLoading: '[UI] Stop Loading',
+
+	notesCreateNote: '[Notes] Create Note',
 };
