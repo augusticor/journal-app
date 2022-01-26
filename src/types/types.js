@@ -8,4 +8,10 @@ export const types = {
 	uiStopLoading: '[UI] Stop Loading',
 
 	notesCreateNote: '[Notes] Create Note',
+	notesSetActiveNote: '[Notes] Set Active Note',
+	notesLoad: '[Notes] Load Notes',
+	notesUpdateNote: '[Notes] Update Note',
+	notesUpdateImgUrl: '[Notes] Update Image URL',
+	notesDeleteNote: '[Notes] Delete Note',
+	notesLogoutCleaning: '[Notes] Logout Cleaning',
 };
