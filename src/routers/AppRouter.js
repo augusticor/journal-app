@@ -9,6 +9,8 @@ import PrivateRoute from './PrivateRoute';
 import LoadingScreen from '../components/journal/LoadingScreen';
 import AuthRouter from './AuthRouter';
 import JournalRouter from './JournalRouter';
+import { loadNotes } from '../helpers/loadNotes';
+import { loadNotesOnReduxStore } from '../actions/notes';
 
 const AppRouter = () => {
 	const dispatch = useDispatch();
@@ -17,10 +19,14 @@ const AppRouter = () => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 	useEffect(() => {
-		onAuthStateChanged(getAuth(), (user) => {
+		onAuthStateChanged(getAuth(), async (user) => {
 			if (user) {
 				dispatch(login(user.uid, user.displayName));
 				setIsLoggedIn(true);
+
+				// Load the user saved notes on firebase
+				const notes = await loadNotes(user.uid);
+				dispatch(loadNotesOnReduxStore(notes));
 			} else {
 				setIsLoggedIn(false);
 			}
