@@ -3,14 +3,13 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { login } from '../actions/auth';
+import { startLoadingNotesFromFirebase } from '../actions/notes';
 
 import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
 import LoadingScreen from '../components/journal/LoadingScreen';
 import AuthRouter from './AuthRouter';
 import JournalRouter from './JournalRouter';
-import { loadNotes } from '../helpers/loadNotes';
-import { loadNotesOnReduxStore } from '../actions/notes';
 
 const AppRouter = () => {
 	const dispatch = useDispatch();
@@ -25,8 +24,7 @@ const AppRouter = () => {
 				setIsLoggedIn(true);
 
 				// Load the user saved notes on firebase
-				const notes = await loadNotes(user.uid);
-				dispatch(loadNotesOnReduxStore(notes));
+				dispatch(startLoadingNotesFromFirebase(user.uid));
 			} else {
 				setIsLoggedIn(false);
 			}
