@@ -10,8 +10,8 @@ export const useForm = (initialState = {}) => {
 		});
 	};
 
-	const resetForm = () => {
-		setFormValues(initialState);
+	const resetForm = (newFormState = initialState) => {
+		setFormValues(newFormState);
 	};
 
 	return [formValues, handleInputChange, resetForm];
