@@ -1,10 +1,17 @@
 import moment from 'moment';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { saveNoteOnFirebase } from '../../actions/notes';
 
 const NoteAppBar = () => {
 	const { active: note } = useSelector((state) => state.notes);
 	const noteDate = moment(note.date);
+
+	const dispatch = useDispatch();
+
+	const handleSave = () => {
+		dispatch(saveNoteOnFirebase(note));
+	};
 
 	return (
 		<div className='notes__app-bar'>
@@ -13,7 +20,9 @@ const NoteAppBar = () => {
 			<div>
 				<button className='btn'>Picture</button>
 
-				<button className='btn'>Save</button>
+				<button onClick={handleSave} className='btn'>
+					Save
+				</button>
 			</div>
 		</div>
 	);

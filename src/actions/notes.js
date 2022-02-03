@@ -1,4 +1,4 @@
-import { collection, doc, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase-config';
 import { types } from '../types/types';
 import { loadNotes } from '../helpers/loadNotes';
@@ -45,5 +45,22 @@ export const loadNotesOnReduxStore = (notes = []) => {
 		payload: {
 			notes,
 		},
+	};
+};
+
+export const saveNoteOnFirebase = (note) => {
+	return async (dispatch, getState) => {
+		const { uid } = getState().auth;
+
+		if (!note.imageUrl) {
+			delete note.imageUrl;
+		}
+
+		const noteToFirestore = { ...note };
+		delete noteToFirestore.id;
+
+		const noteReference = doc(db, `${uid}/journal/notes/${note.id}`);
+
+		await updateDoc(noteReference, noteToFirestore);
 	};
 };
