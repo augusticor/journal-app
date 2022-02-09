@@ -40,6 +40,14 @@ export const notesReducer = (state = initialState, action) => {
 				notes: action.payload.notes,
 			};
 
+		case types.notesUpdateNoteOnSidebar:
+			return {
+				...state,
+				notes: state.notes.map((note) => {
+					return note.id === action.payload.id ? action.payload.note : note;
+				}),
+			};
+
 		default:
 			return state;
 	}
