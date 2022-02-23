@@ -1,8 +1,11 @@
 import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase-config';
 import { types } from '../types/types';
-import { loadNotes } from '../helpers/loadNotes';
 import Swal from 'sweetalert2';
+import { loadNotes } from '../helpers/loadNotes';
+import { fileUpload } from '../helpers/fileUpload';
+
+//react-journal-appa
 
 export const startNewNote = () => {
 	return async (dispatch, getState) => {
@@ -84,5 +87,15 @@ export const refreshNoteOnSidebar = (id, note) => {
 				...note,
 			},
 		},
+	};
+};
+
+export const startUploading = (file) => {
+	return async (dispatch, getState) => {
+		const { active: activeNote } = getState().notes;
+		console.log(file);
+
+		const fileUrl = await fileUpload(file);
+		console.log(fileUrl);
 	};
 };
