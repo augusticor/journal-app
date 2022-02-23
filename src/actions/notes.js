@@ -1,4 +1,4 @@
-import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
+import { collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase-config';
 import { types } from '../types/types';
 import Swal from 'sweetalert2';
@@ -93,9 +93,52 @@ export const refreshNoteOnSidebar = (id, note) => {
 export const startUploading = (file) => {
 	return async (dispatch, getState) => {
 		const { active: activeNote } = getState().notes;
-		console.log(file);
+
+		Swal.fire({
+			title: 'Upload',
+			text: 'Uploading image ...',
+			allowOutsideClick: false,
+			allowEscapeKey: false,
+			didOpen: () => {
+				Swal.showLoading();
+			},
+			didClose: () => {
+				Swal.fire({
+					title: 'Upload',
+					text: 'Picture uploaded !',
+					icon: 'success',
+				});
+			},
+		});
 
 		const fileUrl = await fileUpload(file);
-		console.log(fileUrl);
+		activeNote.imageUrl = fileUrl;
+
+		Swal.close();
+
+		dispatch(saveNoteOnFirebase(activeNote));
+	};
+};
+
+export const startDeletingNote = (id) => {
+	return async (dispatch, getState) => {
+		const { uid } = getState().auth;
+		const noteReference = doc(db, `${uid}/journal/notes/${id}`);
+
+		await deleteDoc(noteReference);
+		dispatch(deleteNoteStore(id));
+
+		Swal.fire({
+			title: 'Delete',
+			text: 'Note deleted',
+			icon: 'success',
+		});
+	};
+};
+
+export const deleteNoteStore = (id) => {
+	return {
+		type: types.notesDeleteNote,
+		payload: id,
 	};
 };

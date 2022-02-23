@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveNote } from '../../actions/notes';
+import { setActiveNote, startDeletingNote } from '../../actions/notes';
 import { useForm } from '../../hooks/useForm';
 import NoteAppBar from './NoteAppBar';
 
@@ -24,6 +24,10 @@ const NoteScreen = () => {
 		dispatch(setActiveNote(formValues.id, { ...formValues }));
 	}, [formValues, dispatch]);
 
+	const handleDelete = () => {
+		dispatch(startDeletingNote(activeNote.id));
+	};
+
 	return (
 		<div className='notes__main-content'>
 			<NoteAppBar />
@@ -35,10 +39,14 @@ const NoteScreen = () => {
 
 				{imageUrl && (
 					<div className='notes__image'>
-						<img src='https://thegoalchaser.com/wp-content/uploads/Self-Inspirational-Quotes.jpg.webp' alt='Sunset three' />
+						<img src={imageUrl} alt='Sunset three' />
 					</div>
 				)}
 			</form>
+
+			<button onClick={handleDelete} className='btn btn-danger'>
+				Delete
+			</button>
 		</div>
 	);
 };

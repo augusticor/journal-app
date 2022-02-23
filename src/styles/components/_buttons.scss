@@ -24,6 +24,16 @@
 	width: 100%;
 }
 
+.btn-danger {
+	background-color: settings.$danger;
+	border-radius: 3px;
+	transition: background-color 0.3s ease;
+
+	&:hover {
+		background-color: darken($color: settings.$danger, $amount: 10);
+	}
+}
+
 .btn-primary {
 	background-color: settings.$primary;
 	border-radius: 2px;
