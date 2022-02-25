@@ -23,6 +23,9 @@ export const startNewNote = () => {
 		await setDoc(noteReference, newNote);
 
 		dispatch(setActiveNote(noteReference.id, newNote));
+
+		//update sidebar to appear new note
+		dispatch(addNewestNoteToSideBar(noteReference.id, newNote));
 	};
 };
 
@@ -140,5 +143,17 @@ export const deleteNoteStore = (id) => {
 	return {
 		type: types.notesDeleteNote,
 		payload: id,
+	};
+};
+
+export const cleanNotesOnLogout = () => ({ type: types.notesLogoutCleaning });
+
+export const addNewestNoteToSideBar = (id, note) => {
+	return {
+		type: types.notesUpdateNewestAddedNote,
+		payload: {
+			id,
+			...note,
+		},
 	};
 };

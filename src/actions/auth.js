@@ -4,6 +4,7 @@ import { updateProfile, createUserWithEmailAndPassword, getAuth, signInWithPopup
 import Swal from 'sweetalert2';
 
 import { startLoading, stopLoading } from './ui';
+import { cleanNotesOnLogout } from './notes';
 
 export const startLoginEmailPassword = (email, password) => {
 	return (dispatch) => {
@@ -87,6 +88,8 @@ export const startLogout = () => {
 		await signOut(getAuth());
 
 		dispatch(logout());
+
+		dispatch(cleanNotesOnLogout());
 	};
 };
 

@@ -14,10 +14,10 @@ const RegisterScreen = () => {
 	const { message: errorMessage, loading: loadingState } = state;
 
 	const [formValues, handleInputChange] = useForm({
-		username: 'Demelza Boris',
-		email: 'hijasdeboris@gmail.com',
-		password: '1234567890',
-		password2: '1234567890',
+		username: '',
+		email: '',
+		password: '',
+		password2: '',
 	});
 
 	const { username, email, password, password2 } = formValues;
