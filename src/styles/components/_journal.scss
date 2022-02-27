@@ -46,6 +46,15 @@
 	font-weight: bold;
 }
 
+.journal__hide-sidebar {
+	align-self: flex-end;
+	margin: 15px 20px 5px 0;
+
+	&:hover {
+		color: darken($color: $white, $amount: 20);
+	}
+}
+
 .journal__main-content {
 	display: flex;
 }

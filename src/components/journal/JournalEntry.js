@@ -12,7 +12,7 @@ const JournalEntry = ({ id, title, body, imageUrl, date }) => {
 
 	//
 	return (
-		<div className='journal__entry pointer' onClick={handleEntryClick}>
+		<div className='journal__entry pointer animate__animated animate__slideInLeft' onClick={handleEntryClick}>
 			{imageUrl && <div className='journal__entry-picture' style={{ backgroundSize: 'cover', backgroundImage: `url(${imageUrl})` }}></div>}
 
 			<div className='journal__entry-body'>

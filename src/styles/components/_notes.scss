@@ -9,6 +9,12 @@
 	padding: 10px 20px;
 }
 
+.notes__bottom {
+	align-items: flex-end;
+	display: flex;
+	justify-content: space-between;
+}
+
 .notes__content {
 	display: flex;
 	flex-direction: column;
@@ -18,7 +24,7 @@
 
 .notes__image {
 	img {
-		box-shadow: 3px 3px $dark-gray;
+		box-shadow: 1px 1px $dark-gray;
 		height: 150px;
 	}
 }

@@ -32,21 +32,28 @@ const NoteScreen = () => {
 		<div className='notes__main-content'>
 			<NoteAppBar />
 
-			<form className='notes__content'>
+			<form className='notes__content animate__animated animate__fadeIn'>
 				<input type='text' className='notes__title-input' placeholder='Today was a good day' value={title} name='title' onChange={handleInputChange} />
 
 				<textarea placeholder='What happened today ...' className='notes__text-area' value={body} name='body' onChange={handleInputChange}></textarea>
 
-				{imageUrl && (
-					<div className='notes__image'>
-						<img src={imageUrl} alt='Sunset three' />
-					</div>
-				)}
+				<div className='notes__bottom'>
+					{
+						imageUrl ? 
+							(<div className='notes__image'>
+								<img src={imageUrl} alt='Sunset three' />
+							</div>) : 
+							<p>.</p>
+					}
+
+					<button type='button' onClick={handleDelete} className='btn btn-danger'>
+						<i className='fa fa-trash' />
+						&nbsp;
+						Delete note
+					</button>
+				</div>
 			</form>
 
-			<button onClick={handleDelete} className='btn btn-danger'>
-				Delete
-			</button>
 		</div>
 	);
 };

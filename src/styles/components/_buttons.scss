@@ -27,7 +27,9 @@
 .btn-danger {
 	background-color: settings.$danger;
 	border-radius: 3px;
+	height: 50px;
 	transition: background-color 0.3s ease;
+	width: 20%;
 
 	&:hover {
 		background-color: darken($color: settings.$danger, $amount: 10);

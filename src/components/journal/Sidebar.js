@@ -17,6 +17,10 @@ const Sidebar = () => {
 		dispatch(startNewNote());
 	};
 
+	const handleHideSidebar = () => {
+		console.log('gotcha !');
+	}
+
 	return (
 		<aside className='journal__sidebar'>
 			<div className='journal__sidebar-navbar'>
@@ -36,6 +40,8 @@ const Sidebar = () => {
 			</div>
 
 			<JournalEntries />
+
+			<i onClick={handleHideSidebar} className='journal__hide-sidebar fa fa-arrow-left fa-2x' aria-hidden='true' />
 		</aside>
 	);
 };
