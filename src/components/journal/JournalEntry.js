@@ -16,8 +16,13 @@ const JournalEntry = ({ id, title, body, imageUrl, date }) => {
 			{imageUrl && <div className='journal__entry-picture' style={{ backgroundSize: 'cover', backgroundImage: `url(${imageUrl})` }}></div>}
 
 			<div className='journal__entry-body'>
-				<p className='journal__entry-title'>{title}</p>
-				<p className='journal__entry-content'>{body}</p>
+				<p className='journal__entry-title'>
+					{title.length > 32 ? `${title.substring(0, 29)} ...` : title}
+				</p>
+
+				<p className='journal__entry-content'>
+					{body.length > 72 ? `${body.substring(0, 65)} ...` : body}
+				</p>
 			</div>
 
 			<div className='journal__entry-date-box'>
