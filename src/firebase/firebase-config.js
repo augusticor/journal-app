@@ -3,14 +3,17 @@ import { getFirestore } from 'firebase/firestore';
 import { GoogleAuthProvider } from 'firebase/auth';
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyBm4SGleKIoIN2olqAyNZK_k15ISDzBwn0',
-	authDomain: 'journal-appa.firebaseapp.com',
-	projectId: 'journal-appa',
-	storageBucket: 'journal-appa.appspot.com',
-	messagingSenderId: '244647352775',
-	appId: '1:244647352775:web:ab3ce20839de63d4eba1e2',
+	apiKey: process.env.REACT_APP_APIKEY,
+	authDomain: process.env.REACT_APP_AUTHDOMAIN,
+	projectId: process.env.REACT_APP_PROJECTID,
+	storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+	messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
+	appId: process.env.REACT_APP_APPID,
 };
 
+/**
+ * Uses different firebase configurations depending the enviroment if production or development, based on .env files
+ */
 initializeApp(firebaseConfig);
 
 const db = getFirestore();
