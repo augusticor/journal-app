@@ -24,9 +24,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - name: Install dependencies
-    - run: npm install --include=dev
+      run: npm install --include=dev
     - name: Test project
-    - run: npm test
+      run: npm test
     
   # Development environment
   development:
@@ -47,5 +47,4 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - name: Install dependencies
-    - run: npm install
-    
+      run: npm install
