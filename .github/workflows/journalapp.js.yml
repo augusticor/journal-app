@@ -1,0 +1,51 @@
+# This workflow will do a clean installation of node dependencies and run tests across different versions of node
+
+name: Journal App CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    environment: TEST
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: Install dependencies
+    - run: npm install --include=dev
+    - name: Test project
+    - run: npm test
+    
+  # Development environment
+  development:
+
+    runs-on: ubuntu-latest
+    environment: DEV
+    needs: [test]
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: Install dependencies
+    - run: npm install
+    
