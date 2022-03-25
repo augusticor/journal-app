@@ -1,5 +1,5 @@
 export const fileUpload = async (file) => {
-	const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/dg2nreez0/image/upload';
+	const cloudinaryUrl = process.env.REACT_APP_CLOUDINARYURL;
 
 	const formData = new FormData();
 	formData.append('upload_preset', 'react-journal-appa');

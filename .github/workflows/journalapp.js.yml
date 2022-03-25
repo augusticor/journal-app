@@ -28,12 +28,19 @@ jobs:
     - name: Test project
       run: npm test
       env:
+        # Firebase environment variables
         REACT_APP_APIKEY: ${{ secrets.REACT_APP_APIKEY }}
         REACT_APP_AUTHDOMAIN: ${{ secrets.REACT_APP_AUTHDOMAIN }}
         REACT_APP_PROJECTID: ${{ secrets.REACT_APP_PROJECTID }}
         REACT_APP_STORAGEBUCKET: ${{ secrets.REACT_APP_STORAGEBUCKET }}
         REACT_APP_MESSAGINGSENDERID: ${{ secrets.REACT_APP_MESSAGINGSENDERID }}
         REACT_APP_APPID: ${{ secrets.REACT_APP_APPID }}
+        # Cloudinary environment variables:
+        REACT_APP_CLOUD_NAME: ${{ secrets.REACT_APP_CLOUD_NAME }}
+        REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
+        REACT_APP_API_SECRET: ${{ secrets.REACT_APP_API_SECRET }}
+        REACT_APP_SECURE: ${{ secrets.REACT_APP_SECURE }}
+        REACT_APP_CLOUDINARYURL: ${{ secrets.REACT_APP_CLOUDINARYURL }}
     
   # Development environment
   development:
@@ -41,6 +48,9 @@ jobs:
     runs-on: ubuntu-latest
     environment: DEV
     needs: [test]
+    env:
+      # Cloudinary dev environment variables
+      REACT_APP_CLOUDINARYURL: ${{ secrets.REACT_APP_CLOUDINARYURL }}
 
     strategy:
       matrix:
