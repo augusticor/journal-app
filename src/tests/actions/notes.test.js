@@ -19,9 +19,19 @@ import {
 	startDeletingNote,
 	startLoadingNotesFromFirebase,
 	startNewNote,
+	startUploading,
 } from '../../actions/notes';
 import { db } from '../../firebase/firebase-config';
 import { types } from '../../types/types';
+
+// Mock of fileUpload function
+jest.mock('../../helpers/fileUpload', () => {
+	return {
+		fileUpload: jest.fn(() => {
+			return Promise.resolve('https://res.cloudinary.com/4du482j4/image/upload/v321321/image.jpg');
+		}),
+	};
+});
 
 // Here go the middlewares if using any
 const middlewares = [thunk];
@@ -35,14 +45,14 @@ const storeInitialState = {
 	notes: {
 		notes: [
 			{
-				id: 'Axgco59TY0otVxyaSykc',
+				id: 'ENWVboxycDhEorGGl5VV',
 				title: 'Testing note 1',
 				body: 'Eu id aliqua pariatur laboris voluptate aliquip fugiat non. Labore ipsum qui sit ad mollit commodo cupidatat nisi adipisicing laborum qui.',
 				imageUrl: '',
 				date: 1646083697953,
 			},
 			{
-				id: 'XW18hSeTcwtyEzWDW74X',
+				id: 'XqkLPZ0iIjzV8l8WYiwl',
 				title: 'Testing note 2',
 				body: 'Reprehenderit consectetur commodo officia ex sunt ex.',
 				imageUrl: '',
@@ -50,7 +60,7 @@ const storeInitialState = {
 			},
 		],
 		active: {
-			id: 'Axgco59TY0otVxyaSykc',
+			id: 'ENWVboxycDhEorGGl5VV',
 			title: 'Testing note 1',
 			body: 'Eu id aliqua pariatur laboris voluptate aliquip fugiat non. Labore ipsum qui sit ad mollit commodo cupidatat nisi adipisicing laborum qui.',
 			imageUrl: '',
@@ -179,8 +189,9 @@ describe('Tests on notes actions', () => {
 		});
 	});
 
-	test('Should start uploading an image', () => {
-		// to do ...
+	test('Should start uploading an image', async () => {
+		const file = 'photo.jpg';
+		await store.dispatch(startUploading(file));
 	});
 
 	test('Should start deleting note', async () => {

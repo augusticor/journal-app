@@ -19,13 +19,17 @@ export const startNewNote = () => {
 			date: new Date().getTime(),
 		};
 
-		const noteReference = doc(collection(db, `${uid}/journal/notes`));
-		await setDoc(noteReference, newNote);
+		try {
+			const noteReference = doc(collection(db, `${uid}/journal/notes`));
+			await setDoc(noteReference, newNote);
 
-		dispatch(setActiveNote(noteReference.id, newNote));
+			dispatch(setActiveNote(noteReference.id, newNote));
 
-		//update sidebar to appear new note
-		dispatch(addNewestNoteToSideBar(noteReference.id, newNote));
+			//update sidebar to appear new note
+			dispatch(addNewestNoteToSideBar(noteReference.id, newNote));
+		} catch (error) {
+			console.log(error);
+		}
 	};
 };
 

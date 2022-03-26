@@ -10,7 +10,7 @@ export const startLoginEmailPassword = (email, password) => {
 	return (dispatch) => {
 		dispatch(startLoading());
 
-		signInWithEmailAndPassword(getAuth(), email, password)
+		return signInWithEmailAndPassword(getAuth(), email, password)
 			.then(({ user }) => {
 				dispatch(login(user.uid, user.displayName));
 
