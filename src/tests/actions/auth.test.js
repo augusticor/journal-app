@@ -3,24 +3,23 @@ import configureStore from 'redux-mock-store';
 import { login, logout, startLoginEmailPassword, startLogout } from '../../actions/auth';
 import { types } from '../../types/types';
 
+// Increase jest timeout
+jest.setTimeout(10000);
+
+// Configure mock store
+const storeInitialState = {
+	auth: {
+		uid: '3d6558rf8AS46Fd5D46',
+		name: 'Testing user',
+	},
+};
+
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
+let store = mockStore(storeInitialState);
+
+// --- Tests ---
 describe('Tests on auth actions', () => {
-	// Increase jest timeout
-	jest.setTimeout(10000);
-
-	// Configure mock store
-	const storeInitialState = {
-		auth: {
-			uid: '3d6558rf8AS46Fd5D46',
-			name: 'Testing user',
-		},
-	};
-
-	const middlewares = [thunk];
-	const mockStore = configureStore(middlewares);
-	let store = mockStore(storeInitialState);
-
-	// --- Tests ---
-
 	beforeEach(() => {
 		store = mockStore(storeInitialState);
 	});
