@@ -69,7 +69,7 @@ const RegisterScreen = () => {
 				<input
 					className='auth__input'
 					id='lblemail'
-					type='text'
+					type='email'
 					placeholder='email@example.com'
 					name='email'
 					value={email}
