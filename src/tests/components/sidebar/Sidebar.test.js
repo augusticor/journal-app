@@ -14,9 +14,6 @@ const middlewares = [thunk];
 const mockStore = createMockStore(middlewares);
 let store = mockStore(mockStoreInitialState);
 
-// Mock functions
-// TODO ...
-
 // ******* TESTS *******
 const wrapper = mount(
 	<Provider store={store}>
@@ -25,8 +22,5 @@ const wrapper = mount(
 );
 
 describe('Tests on <Sidebar/> component', () => {
-	test('Should match snapshot', () => expect(wrapper).toMatchSnapshot());
-
-	// TODO TEST useState changes ...
-	
+	test('Should match default snapshot', () => expect(wrapper).toMatchSnapshot());
 });
