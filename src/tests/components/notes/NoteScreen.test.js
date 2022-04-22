@@ -62,7 +62,7 @@ describe('Tests on <NoteScreen/> component', () => {
 
 	test('Should not find image and date should be correct', () => {
 		expect(wrapper.find('.img').exists()).toBeFalsy();
-		expect(wrapper.find('span').text().trim()).toBe('Monday, February 28th 2022, 4:28 pm');
+		expect(wrapper.find('span').text().trim()).toMatch(/Monday, February 28th 2022, \d?\d:\d{2} pm/);
 	});
 
 	test('Should call startDeletingNote action when delete button is pressed', () => {
